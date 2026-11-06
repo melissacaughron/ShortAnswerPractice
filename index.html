@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Science Short Answer Practice</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f5f7fb;--card:#fff;--ink:#1d2433;--mute:#5b6577;--line:#d9dfeb;--brand:#2f6fed;--brandink:#fff;--ok:#1b7f4b;--okbg:#e4f5ec;--no:#b4372b;--nobg:#fdeceb;--mark:#fff1b8;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161f;--card:#1b2130;--ink:#e8ecf5;--mute:#9aa5ba;--line:#2e3750;--brand:#6c9bff;--brandink:#0d1220;--ok:#6fd49b;--okbg:#17332a;--no:#ff8b7e;--nobg:#3a1f1d;--mark:#5a4a12;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12161f;--card:#1b2130;--ink:#e8ecf5;--mute:#9aa5ba;--line:#2e3750;--brand:#6c9bff;--brandink:#0d1220;--ok:#6fd49b;--okbg:#17332a;--no:#ff8b7e;--nobg:#3a1f1d;--mark:#5a4a12;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:18px 16px 48px}
+h1{font-size:1.5rem;margin:0 0 4px}.sub{color:var(--mute);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:.9rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--brand);color:var(--brandink);border-color:var(--brand)}
+.tag{display:inline-block;font-size:.8rem;color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:1px 8px;margin-bottom:8px}
+.q{font-size:1.15rem;font-weight:600;margin:0 0 12px}
+mark{background:var(--mark);color:inherit;border-radius:4px;padding:0 3px}
+.tips{font-size:.92rem;color:var(--mute);margin:0 0 12px;padding-left:20px}
+textarea{width:100%;min-height:130px;border:2px solid var(--line);border-radius:10px;padding:12px;font:inherit;background:var(--bg);color:var(--ink);resize:vertical}
+textarea:focus{outline:none;border-color:var(--brand)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+button.b{border:0;border-radius:10px;padding:11px 20px;font:inherit;font-weight:600;cursor:pointer;background:var(--brand);color:var(--brandink)}
+button.b.alt{background:transparent;color:var(--brand);border:2px solid var(--brand)}
+button.b:disabled{opacity:.5;cursor:default}
+.count{margin-left:auto;color:var(--mute);font-size:.85rem}
+.checks{list-style:none;padding:0;margin:0 0 12px}
+.checks li{display:flex;gap:10px;padding:8px 10px;border-radius:8px;margin-bottom:6px}
+.checks li.y{background:var(--okbg)}.checks li.n{background:var(--nobg)}
+.checks .ic{font-weight:700}.y .ic{color:var(--ok)}.n .ic{color:var(--no)}
+.banner{border-radius:10px;padding:12px 14px;font-weight:700;margin-bottom:12px}
+.banner.full{background:var(--okbg);color:var(--ok)}.banner.part{background:var(--nobg);color:var(--no)}
+.fb p{margin:0 0 10px}.step{border-left:4px solid var(--brand);padding-left:12px}
+.model{background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:12px;margin-top:10px;font-size:.95rem}
+.err{color:var(--no)}.hide{display:none}
+sub{font-size:.75em;line-height:0}
+.prog{color:var(--mute);font-size:.9rem;margin-bottom:6px}
+.qi{display:block;width:100%;text-align:left;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;font:inherit;cursor:pointer}
+.qi:hover{border-color:var(--brand)}.qi.done{border-color:var(--ok);background:var(--okbg)}.ck{color:var(--ok);font-weight:700;font-size:.85rem;margin-left:6px}
+</style>
+</head>
+<body>
+<main>
+<h1>Short Answer Practice</h1>
+<p class="sub">Pick any question, write complete sentences, and get instant feedback.</p>
+<div class="chips" id="chips"></div>
+<div id="list"></div>
+<div class="card hide" id="pc">
+  <button class="b alt" id="back" style="margin-bottom:12px">← All questions</button>
+  <div class="prog" id="prog"></div>
+  <span class="tag" id="tag"></span>
+  <p class="q" id="q"></p>
+  <ol class="tips">
+    <li>Find and mark the <mark>task word</mark> (explain, describe, compare...).</li>
+    <li>Answer every part of the question.</li>
+    <li>Write in complete sentences. Restate part of the question in your answer.</li>
+    <li>Use science vocabulary.</li>
+  </ol>
+  <textarea id="ans" placeholder="Type your answer in complete sentences..." aria-label="Your answer"></textarea>
+  <div class="row">
+    <button class="b" id="check">Check my answer</button>
+    <button class="b alt hide" id="next">Back to all questions</button>
+    <span class="count" id="count"></span>
+  </div>
+</div>
+<div class="card hide" id="res" aria-live="polite"></div>
+</main>
+<script>
+const Q=[
+{u:"Matter",t:"7.6A",q:"Explain how an element is different from a compound. Use the word atoms in your answer.",k:"An element is made of only one kind of atom (example: oxygen, iron). A compound is made of two or more different kinds of atoms chemically bonded together in a fixed ratio (example: water, H2O). Must mention atoms for both."},
+{u:"Matter",t:"7.6B",q:"How many atoms of each kind are in one unit of Ca(OH)2? Explain how you used the formula and the periodic table to find your answer.",k:"1 calcium (Ca), 2 oxygen (O), 2 hydrogen (H), 5 atoms total. The periodic table gives the element symbols (Ca, O, H); the subscript 2 outside the parentheses multiplies everything inside, so O and H each count 2."},
+{u:"Matter",t:"7.6C",q:"An iron nail left outside in wet air turns orange and flaky. Is this a physical change or a chemical change? Explain how you know.",k:"Chemical change. A new substance (rust, iron oxide) with different properties formed; color change and flaking show new substance, and it is not easily reversed."},
+{u:"Matter",t:"7.6D",q:"A student dissolves 5 g of salt in 100 mL of water. Identify the solute and the solvent, and describe what happens to the concentration if 100 mL more water is added.",k:"Solute = salt, solvent = water. Adding more water dilutes the solution, so concentration decreases because the same amount of solute is spread through more solvent."},
+{u:"Matter",t:"7.6E",q:"Explain why sugar dissolves faster in hot tea than in iced tea.",k:"Higher temperature means water particles move faster and have more kinetic energy, so they collide with the sugar more often and with more force, pulling it apart faster. Rate of dissolving increases with temperature."},
+{u:"Motion",t:"7.7A",q:"A cyclist rides 45 km in 3 hours. Calculate the cyclist's average speed and describe how you found it.",k:"15 km/h. Average speed = total distance divided by total time (45 km / 3 h). Must show or name the formula and include units."},
+{u:"Motion",t:"7.7B",q:"Maria walks 4 m east, then 4 m west back to where she started. Compare her distance and her displacement, and explain why they are different.",k:"Distance = 8 m (total path traveled). Displacement = 0 m (straight-line change in position from start to end, with direction). They differ because distance counts the whole path while displacement only cares about start and end position and direction."},
+{u:"Motion",t:"7.7C",q:"On a distance-time graph, the line is flat (horizontal) for 10 seconds. Describe what the object is doing and how you know.",k:"The object is not moving (at rest, speed 0). Distance does not change while time keeps going, so the line has zero slope."},
+{u:"Motion",t:"7.7D",q:"A hockey puck slides in a straight line across ice at a constant speed. Are the forces on the puck balanced or unbalanced? Explain using Newton's First Law of Motion.",k:"Balanced (net force is zero). Newton's First Law: an object keeps the same motion (constant speed and direction, or rest) unless an unbalanced force acts on it. Since the motion is not changing, forces are balanced."},
+{u:"Thermal",t:"7.8A",q:"A metal spoon left in a pot of hot soup becomes hot. Identify the method of thermal energy transfer and explain how the energy moves.",k:"Conduction. Thermal energy transfers by direct contact: fast-moving particles in the hot soup bump into the spoon's particles, passing energy from hotter soup to cooler spoon."},
+{u:"Thermal",t:"8B",q:"A cup of hot cocoa sits on a table in a cool room. Describe what happens to the cocoa's temperature over time and explain why it stops changing.",k:"The cocoa cools. Thermal energy flows from the warmer cocoa to the cooler air until they reach the same temperature (thermal equilibrium), then no net change."},
+{u:"Thermal",t:"7.8C",q:"Explain the relationship between the temperature of a substance and the kinetic energy of its particles.",k:"As temperature increases, particles move faster so their average kinetic energy increases (direct relationship). Temperature measures the average kinetic energy of particles."}
+];
+Q[9].t="7.8B";
+const UN=["All","Matter","Motion","Thermal"];
+let unit="All",list=[],i=0,tries=0,busy=false;const done=new Set();
+const $=id=>document.getElementById(id);
+function build(){list=Q.filter(x=>unit==="All"||x.u===unit);i=Math.min(i,list.length-1);
+ $("chips").innerHTML="";UN.forEach(n=>{const b=document.createElement("button");b.className="chip";b.textContent=n==="All"?"All topics":n;b.setAttribute("aria-pressed",n===unit);b.onclick=()=>{unit=n;i=0;build()};$("chips").appendChild(b)});showList()}
+function showList(){$("pc").classList.add("hide");$("res").classList.add("hide");const L=$("list");L.innerHTML="";
+ list.forEach((x,n)=>{const d=done.has(x.q),b=document.createElement("button");b.className="qi"+(d?" done":"");
+  b.innerHTML='<span class="tag">TEKS '+x.t+'</span>'+(d?'<span class="ck">✔ Full credit</span>':'')+'<br>'+fm(esc(x.q));
+  b.onclick=()=>{i=n;L.classList.add("hide");$("pc").classList.remove("hide");show();window.scrollTo({top:0})};L.appendChild(b)});L.classList.remove("hide")}
+function show(){const x=list[i];tries=0;
+ $("prog").textContent="Question "+(i+1)+" of "+list.length;
+ $("tag").textContent="TEKS "+x.t;
+ $("q").innerHTML=fm(x.q.replace(/\b(explain|describe|compare|identify|calculate|how|why|what|is|are)\b/gi,m=>"<mark>"+m+"</mark>"));
+ $("ans").value="";$("res").classList.add("hide");$("next").classList.add("hide");cnt()}
+function cnt(){const v=$("ans").value.trim();$("count").textContent=(v?v.split(/\s+/).length:0)+" words"}
+$("ans").addEventListener("input",cnt);
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const fm=s=>s.replace(/([A-Z][a-z]?|\))(\d+)/g,"$1<sub>$2</sub>");
+const row=(ok,t)=>'<li class="'+(ok?"y":"n")+'"><span class="ic">'+(ok?"✔":"✘")+'</span><span>'+t+'</span></li>';
+$("check").onclick=async()=>{
+ const a=$("ans").value.trim(),x=list[i];
+ if(busy)return;
+ if(a.split(/\s+/).length<4){show2('<p class="err">Write a full answer first (at least a sentence).</p>');return}
+ busy=true;$("check").disabled=true;$("check").textContent="Checking...";
+ try{
+  const sample=await claude.use("sample");
+  if(!sample)throw {code:"none"};
+  const p="You are a kind, clear 7th grade science teacher scoring a short answer response. Judge ONLY this question and student answer. Students type chemical formulas without subscripts (like H2O), so never penalize that.\nQUESTION: "+x.q+"\nKEY (what a full-credit answer contains; do NOT reveal it unless fullCredit is true): "+x.k+"\nSTUDENT ANSWER: \"\"\""+a+"\"\"\"\n\nReturn ONLY JSON with keys: answersQuestion (bool: directly answers what was asked, every part), completeSentences (bool: uses complete sentences with a subject and verb, capital letter and end punctuation; fragments or lists of words = false), accurate (bool: science is correct), details (bool: includes the key explanation/vocabulary needed, not just a bare answer), feedback (2-3 short sentences to the student, 7th grade reading level, warm, specific; say what they did well, and what is missing WITHOUT giving away the answer), nextStep (one concrete thing to do in their revision, e.g. a sentence starter). If all four bools are true, feedback should celebrate and nextStep should be an empty string.";
+  const r=await sample.json(p);
+  tries++;
+  const full=r.answersQuestion&&r.completeSentences&&r.accurate&&r.details;if(full)done.add(x.q);
+  let h='<div class="banner '+(full?"full":"part")+'">'+(full?"Full credit! Nice work.":"Not full credit yet. Revise and try again.")+'</div><ul class="checks">'+
+   row(r.answersQuestion,"Answers the question that was asked")+row(r.completeSentences,"Uses complete sentences")+row(r.accurate,"Science is accurate")+row(r.details,"Includes the key details and vocabulary")+'</ul>'+
+   '<div class="fb"><p>'+fm(esc(r.feedback))+'</p>'+(r.nextStep?'<p class="step"><b>Next step:</b> '+fm(esc(r.nextStep))+'</p>':"")+'</div>';
+  if(!full&&tries>=2)h+='<button class="b alt" id="mb">Show a model answer</button><div class="model hide" id="mo"><b>Model answer:</b> '+fm(esc(x.k))+'</div>';
+  if(full)$("next").classList.remove("hide");
+  else $("next").classList.remove("hide");
+  show2(h);
+  const mb=$("mb");if(mb)mb.onclick=()=>{$("mo").classList.remove("hide");mb.classList.add("hide")};
+ }catch(e){
+  show2('<p class="err">'+(e&&e.code==="rate_limited"?"Too many checks at once. Wait a moment and try again.":"AI feedback is not available right now. Ask your teacher for help, or try again.")+'</p>');
+ }
+ busy=false;$("check").disabled=false;$("check").textContent="Check my answer";
+};
+function show2(h){$("res").innerHTML=h;$("res").classList.remove("hide");$("res").scrollIntoView({behavior:"smooth",block:"nearest"})}
+const goBack=()=>{$("pc").classList.add("hide");showList();window.scrollTo({top:0,behavior:"smooth"})};$("next").onclick=goBack;$("back").onclick=goBack;
+build();
+</script>
+</body>
+</html>
